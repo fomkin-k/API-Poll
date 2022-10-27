@@ -1,0 +1,529 @@
+{
+	"info": {
+		"_postman_id": "fc88019c-0424-49e6-bbde-28cdae53c569",
+		"name": "User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23759607"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"token\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "login",
+							"value": "admin1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "222",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"login"
+					]
+				},
+				"description": "Авторизация. Запрос типа POST. Для авторизации в теле запроса нужно указать логин и пароль. В ответ будет получена информация о пользователе и токен, который может быть использован для входа в режим администратора."
+			},
+			"response": [
+				{
+					"name": "Login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "login",
+									"value": "admin1",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "222",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"user\": [\r\n        {\r\n            \"id\": 3,\r\n            \"login\": \"admin1\",\r\n            \"personal_id\": \"2\",\r\n            \"is_admin\": 1,\r\n            \"created_at\": \"2022-10-24T19:15:35.000000Z\",\r\n            \"updated_at\": \"2022-10-24T19:15:35.000000Z\"\r\n        }\r\n    ],\r\n    \"token\": \"3|uAHkCx1AbAE83rYIQWMLMQ5eNHf39m9cI82lEIef\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Get active polls",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/get_active_polls",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"get_active_polls"
+					]
+				},
+				"description": "Получение списка активных опросов. Запрос типа GET. Возвращает список опросов, у которых дата окончания позже текущей даты."
+			},
+			"response": [
+				{
+					"name": "Get active polls",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/get_active_polls",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"get_active_polls"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "[\r\n    {\r\n        \"id\": 1,\r\n        \"title\": \"poll_1\",\r\n        \"description\": \"not first poll\",\r\n        \"ends_at\": \"2022-11-30 10:00:00\",\r\n        \"created_at\": \"2022-10-25T05:45:57.000000Z\",\r\n        \"updated_at\": \"2022-10-25T05:51:14.000000Z\"\r\n    }\r\n]"
+				}
+			]
+		},
+		{
+			"name": "Take the poll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/take_poll/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"take_poll",
+						"1"
+					]
+				},
+				"description": "Прохождение опроса. Запрос типа GET.В маршруте нужно указать ID опроса, который пользователь собирается проходить. Возвращает список вопросов и ответов содержащихся в опросе."
+			},
+			"response": [
+				{
+					"name": "Take the poll 1",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/take_poll/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"take_poll",
+								"1"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "[\r\n    {\r\n        \"question\": {\r\n            \"id\": 1,\r\n            \"poll_id\": 1,\r\n            \"question\": \"Question with multiple answers\",\r\n            \"type\": \"multiple\",\r\n            \"created_at\": \"2022-10-25T08:59:25.000000Z\",\r\n            \"updated_at\": \"2022-10-25T08:59:25.000000Z\"\r\n        },\r\n        \"answers\": [\r\n            {\r\n                \"id\": 1,\r\n                \"question_id\": 1,\r\n                \"text\": \"Answer 1(Multiple)\",\r\n                \"created_at\": \"2022-10-25T09:41:42.000000Z\",\r\n                \"updated_at\": \"2022-10-25T09:41:42.000000Z\"\r\n            },\r\n            {\r\n                \"id\": 2,\r\n                \"question_id\": 1,\r\n                \"text\": \"Answer 2(Multiple)\",\r\n                \"created_at\": \"2022-10-25T09:43:44.000000Z\",\r\n                \"updated_at\": \"2022-10-25T09:43:44.000000Z\"\r\n            },\r\n            {\r\n                \"id\": 3,\r\n                \"question_id\": 1,\r\n                \"text\": \"Answer 3(Multiple)\",\r\n                \"created_at\": \"2022-10-25T09:43:51.000000Z\",\r\n                \"updated_at\": \"2022-10-25T09:43:51.000000Z\"\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"question\": {\r\n            \"id\": 2,\r\n            \"poll_id\": 1,\r\n            \"question\": \"Question with single answer\",\r\n            \"type\": \"single\",\r\n            \"created_at\": \"2022-10-25T09:02:03.000000Z\",\r\n            \"updated_at\": \"2022-10-25T09:02:03.000000Z\"\r\n        },\r\n        \"answers\": [\r\n            {\r\n                \"id\": 4,\r\n                \"question_id\": 2,\r\n                \"text\": \"Answer 1(Single)\",\r\n                \"created_at\": \"2022-10-25T09:44:13.000000Z\",\r\n                \"updated_at\": \"2022-10-25T09:44:13.000000Z\"\r\n            },\r\n            {\r\n                \"id\": 5,\r\n                \"question_id\": 2,\r\n                \"text\": \"Answer 2(Single)\",\r\n                \"created_at\": \"2022-10-25T09:44:33.000000Z\",\r\n                \"updated_at\": \"2022-10-25T09:44:33.000000Z\"\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"question\": {\r\n            \"id\": 3,\r\n            \"poll_id\": 1,\r\n            \"question\": \"Question with text answer\",\r\n            \"type\": \"text\",\r\n            \"created_at\": \"2022-10-25T09:03:41.000000Z\",\r\n            \"updated_at\": \"2022-10-25T09:03:41.000000Z\"\r\n        },\r\n        \"answers\": []\r\n    }\r\n]"
+				}
+			]
+		},
+		{
+			"name": "Answer the question",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "poll_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "question_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "answer_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "text",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/answer_question",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"answer_question"
+					]
+				},
+				"description": "Ответ на вопрос. Запрос типа POST. В теле запроса указываются: user_id-ID пользователя, poll_id- ID опроса, question_id-ID вопроса, answer_id-ID ответа, text-текст ответа. Если выбирается один из вариантов ответов, то заполняется только поле answer_id, а поле text остаётся пустым, если нужно вписать текст ответа, то наоборот заполняется поле text, а answer_id остаётся пустым. В ответ приходит сообщение подтверждающее отправку ответа. В случае множественного выбора ответов на вопрос, нужно по очереди отправить ответы с выбранными ID."
+			},
+			"response": [
+				{
+					"name": "Answer the question",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "poll_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "question_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "answer_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "text",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/answer_question",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"answer_question"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "Ответ на вопрос получен"
+				},
+				{
+					"name": "Answer the question",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "poll_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "question_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "answer_id",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "text",
+									"value": "Answer 1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/answer_question",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"answer_question"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Complete poll",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "poll_id",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/complete_poll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"complete_poll"
+					]
+				},
+				"description": "Завершение опроса. Запрос типа POST. Когда пользователь ответил на все вопросы в опросе, он может отметить опрос, как пройденный. Если пользователь ответил не на все вопросы, ему придёт сообщение об этом. В теле запроса указываются ID пользователя и опроса."
+			},
+			"response": [
+				{
+					"name": "Complete poll",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "poll_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/complete_poll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"complete_poll"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "Опрос пройден"
+				}
+			]
+		},
+		{
+			"name": "Get completed polls",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/get_completed_polls/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"get_completed_polls",
+						"1"
+					]
+				},
+				"description": "Получение пройденных опросов. Запрос типа GET. В маршруте запроса указывается ID пользователя, в ответ приходит списков опросов, которые он прошёл."
+			},
+			"response": [
+				{
+					"name": "Get completed polls",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/get_completed_polls/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"get_completed_polls",
+								"1"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "[\r\n    {\r\n        \"id\": 1,\r\n        \"title\": \"poll_1\",\r\n        \"description\": \"first poll\",\r\n        \"ends_at\": \"2022-11-30 10:00:00\",\r\n        \"created_at\": \"2022-10-25T08:45:57.000000Z\",\r\n        \"updated_at\": \"2022-10-25T08:51:14.000000Z\"\r\n    }\r\n]"
+				}
+			]
+		},
+		{
+			"name": "Get completed poll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/get_completed_polls/1/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"get_completed_polls",
+						"1",
+						"1"
+					]
+				},
+				"description": "Просмотр пройденного опроса. Запрос типа GET. В маршруте запроса указывается ID пользователя и ID опроса, который он прошёл, в ответ приходит список вопросов с выбранными или вписанными ответами."
+			},
+			"response": [
+				{
+					"name": "Get completed poll",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/get_completed_polls/1/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"get_completed_polls",
+								"1",
+								"1"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "[\r\n    {\r\n        \"question\": {\r\n            \"id\": 1,\r\n            \"poll_id\": 1,\r\n            \"question\": \"Question with multiple answers\",\r\n            \"type\": \"multiple\",\r\n            \"created_at\": \"2022-10-25T08:59:25.000000Z\",\r\n            \"updated_at\": \"2022-10-25T08:59:25.000000Z\"\r\n        },\r\n        \"answers\": [\r\n            {\r\n                \"text\": \"Answer 1(Multiple)\"\r\n            },\r\n            {\r\n                \"text\": \"Answer 2(Multiple)\"\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"question\": {\r\n            \"id\": 2,\r\n            \"poll_id\": 1,\r\n            \"question\": \"Question with single answer\",\r\n            \"type\": \"single\",\r\n            \"created_at\": \"2022-10-25T09:02:03.000000Z\",\r\n            \"updated_at\": \"2022-10-25T09:02:03.000000Z\"\r\n        },\r\n        \"answers\": [\r\n            {\r\n                \"text\": \"Answer 1(Multiple)\"\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"question\": {\r\n            \"id\": 3,\r\n            \"poll_id\": 1,\r\n            \"question\": \"Question with text answer\",\r\n            \"type\": \"text\",\r\n            \"created_at\": \"2022-10-25T09:03:41.000000Z\",\r\n            \"updated_at\": \"2022-10-25T09:03:41.000000Z\"\r\n        },\r\n        \"answers\": [\r\n            {\r\n                \"text\": \"Answer 1\"\r\n            }\r\n        ]\r\n    }\r\n]"
+				}
+			]
+		}
+	]
+}
